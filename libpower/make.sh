@@ -1,3 +1,2 @@
-gcc -c -fPIC libpower.c
-gcc -shared -fPIC -o libpower.so libpower.o
-gcc -o test test.c -L. -lpower -Wl,-rpath,.
+gcc -Wall -pedantic -ansi -c -fPIC libpower.c
+gcc -Wall -pedantic -ansi  -shared -fPIC -o libpower.so libpower.o
