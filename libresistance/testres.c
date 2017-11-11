@@ -13,8 +13,8 @@ int main(int argc, char *argv[]){
 	array[2] = 0;
 	printf("Serial   100,50, 0: %f\n", calc_resistance(count, 'S', array));
 	printf("Parallel 100,50, 0: %f\n", calc_resistance(count, 'P', array));
+	printf("Serial, -1 count:   %f\n",calc_resistance(-1,'S',array));
 	free(array);
 	array = NULL;
 	printf("Serial, nullptr:    %f\n",calc_resistance(count,'S',array));
-	printf("Serial, -1 count:   %f\n",calc_resistance(-1,'S',array));
 }

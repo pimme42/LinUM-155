@@ -1,5 +1,5 @@
 test:
-	gcc -o testres testres.c -L. libresistance.so -Wl,-rpath,.
+	gcc -o testres testres.c libresistance.so -Wl,-rpath,.
 
 lib:
 	gcc -c -fPIC libresistance.c

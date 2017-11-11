@@ -1,0 +1,31 @@
+.TH libresistance
+.SH NAME
+Libresistance - Calculate equivalent resistance
+.SH SYNOPSIS
+.PP
+#include "libresistance.h"
+.PP
+float calc_resistance(int count, char conn, float *array);
+.SH DESCRIPTION
+A library for calculating the equivalent resistance of a network of resistors connected parallelly or serially
+
+.SH PARAMETERS
+.TP
+.B int count 
+Tells how many resistors are connected
+.TP
+.B char conn
+Must be either 'S' for serial connection or 'P' for Parallel connection.
+.TP
+.B float *array
+An array with the resistance of the resistors that are connected.
+
+.SH RETURN VALUE
+.PP
+If everything is correctly input the equivalent resistance of the network is returned, otherwise it returns -1
+.SH SEE ALSO
+libcomponent, libpower
+.SH COPYLEFT
+No rights reserved
+.SH AUTHORS
+Simon Groenberg
