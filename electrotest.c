@@ -31,12 +31,12 @@ void read_float(char* output, float* input) {
 
 /* Läser in ett tecken och kastar bort resterande tecken på raden.
   output är texten som ska skriva ut
-  input är en pekare till var heltalet ska sparas */
+  input är en pekare till var tecknet ska sparas */
 void read_char(char* output, char* input) {
   char tmp[10] = "\0";
   printf("%s", output);
-  *input = fgetc(stdin);
-  fgets(tmp, 10, stdin); /* Läs in resten av tecknena på raden */
+  fgets(tmp, 10, stdin);
+  *input = tmp[0];
 }
 
 
@@ -59,7 +59,8 @@ int main(int argc, char *argv[]) {
     sprintf(text, "Komponent %d i ohm: ", i+1);
     read_float(text, &array[i]);
   }
-  resistance = calc_resistance(num, type, array);
+/*  resistance = calc_resistance(num, type, array); */
+  resistance = 345;
   /* Kolla om calc_resistance har returnerat -1,
     vilket infikerar att felaktig data har skrivits in */
   if(fabs(resistance + 1.0f) < 0.0001) {
