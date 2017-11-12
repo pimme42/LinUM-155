@@ -112,3 +112,21 @@ uninstall:
 	-rm $(LIB_INSTDIR)/$(TARGET_COMPONENT)
 	-rm $(LIB_INSTDIR)/$(TARGET_POWER)
 	-rm $(LIB_INSTDIR)/$(TARGET_RESISTANCE)
+
+
+electrotest2: libs
+		$(CC) $(CFLAGS) -c -o $(TARGET)2.o electrotest.c
+		$(CC) $(CFLAGS) -o $(TARGET)2 electrotest2.o $(LIBSSRC) -lelectro -Wl,-rpath,$(LIBPATH)
+
+libs: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
+	mkdir -p $(LIBPATH)
+	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/libelectro.so libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
+
+libpower/libpower2.o:
+	$(CC) $(CFLAGS) -fPIC -o libpower/libpower2.o -c libpower/calc_power.c
+
+libresistance/libresistance2.o:
+	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance2.o -c libresistance/calc_resistance.c
+
+libcomponent/libcomponent2.o:
+	$(CC) $(CFLAGS) -fPIC -o libcomponent/libcomponent2.o -c libcomponent/e_resistance.c
