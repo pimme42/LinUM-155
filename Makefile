@@ -61,6 +61,12 @@ clean:
 
 # Installerar programmet
 install: electrotest
+# Kolla om vi har root-behörighet
+	@if [ "$$EUID" -ne 0 ]; \
+		then \
+		echo "Du måste ha root-behörighet"; \
+		exit 1; \
+	fi
 # Om biblioteksinstallationskatalogen inte finns, skapar vi den
 	@if [ ! -e $(LIB_INSTDIR) ]; \
 		then \
