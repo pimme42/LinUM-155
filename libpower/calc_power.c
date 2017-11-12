@@ -2,7 +2,8 @@
  * \file calc_power.c
  * \author Tobias Rörstam
  * \date 11 Nov 2017
- * \brief Innehåller implementeringen av funktioner för beräkning av effektutvecklingen över en resistor.
+ * \brief Innehåller implementeringen av funktioner
+ * för beräkning av effektutvecklingen över en resistor.
  */
 
 #include "calc_power.h"
