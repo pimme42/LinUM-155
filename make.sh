@@ -1,1 +1,2 @@
-gcc -o electrotest electrotest.c -L. -Llibcomponent -Llibpower -lpower -lcomponent -Wl,-rpath,lib/
+set -v
+gcc -o electrotest electrotest.c -L. -Llibcomponent -Llibresistance -Llibpower -lpower -lcomponent -lresistance -Wl,-rpath,lib/
