@@ -1,6 +1,6 @@
-#include "libpower/libpower.h"
+#include "libpower/calc_power.h"
 #include "libcomponent/e_resistance.h"
-#include "libresistance/libresistance.h"
+#include "libresistance/calc_resistance.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

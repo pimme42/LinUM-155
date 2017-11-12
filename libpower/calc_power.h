@@ -1,12 +1,12 @@
 /**
- * \file libpower.h
+ * \file calc_power.h
  * \author Tobias Rörstam
  * \date 11 Nov 2017
  * \brief Innehåller funktioner för beräkning av effektutvecklingen över en resistor.
  */
 
-#ifndef __LIBPOWER_H__
-#define __LIBPOWER_H__
+#ifndef __CALC_POWER_H__
+#define __CALC_POWER_H__
 
 /** \brief Beräknar effektutvecklingen över en resistans
  *  med hjälp av formeln P = U * U / R
