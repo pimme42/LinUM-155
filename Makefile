@@ -29,21 +29,21 @@ TARGET_POWER = libpower.so
 LIBPATH = lib
 
 # Skapar programmet från objektfiler
-electrotest: libpower.o libresistance.o libcomponent.o
+electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o
 	$(CC) $(CFLAGS) -c -o $(TARGET).o electrotest.c
 	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
-libpower.o:
+libpower/libpower.o:
 	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libpower/libpower.o -c libpower/calc_power.c
 	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_RESISTANCE) libpower/libpower.o
 
-libresistance.o:
+libresistance/libresistance.o:
 	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance.o -c libresistance/calc_resistance.c
 	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_POWER) libresistance/libresistance.o
 
-libcomponent.o:
+libcomponent/libcomponent.o:
 	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libcomponent/libcomponent.o -c libcomponent/e_resistance.c
 	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent/libcomponent.o
