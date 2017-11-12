@@ -1,6 +1,22 @@
+/**@file calc_resistance.c
+ * @brief Implementation of the calc_resistance function in calc_resistance.h
+ * @author Simon Groenberg
+ * @bug No known bugs *
+ */
+
 #include "calc_resistance.h"
 
-float calc_resistance(int count, char conn, float *array){
+/**
+ * @brief This function calculates the equivalent resistance of resistor
+ * networks
+ * @param count The number of connected resistors
+ * @param conn The type of connection, 'S' for serial or 'P' for parallel
+ * @param array a pointer to an array that keeps the resistance of each 
+ * connected resistor
+ * @return The equivalent resistance
+ *
+ **/
+float calc_resistance(int count, char conn, float* array){
 	if (count < 0 || !array){
 		return -1; /* Error if array was null or count is negative */
 	}
