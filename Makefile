@@ -35,18 +35,18 @@ electrotest: libpower.o libresistance.o libcomponent.o
 
 libpower.o:
 	mkdir -p $(LIBPATH)
-	$(CC) $(CFLAGS) -fPIC -o libpower.o -c libpower/calc_power.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_RESISTANCE) libpower.o
+	$(CC) $(CFLAGS) -fPIC -o libpower/libpower.o -c libpower/calc_power.c
+	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_RESISTANCE) libpower/libpower.o
 
 libresistance.o:
 	mkdir -p $(LIBPATH)
-	$(CC) $(CFLAGS) -fPIC -o libresistance.o -c libresistance/calc_resistance.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_POWER) libresistance.o
+	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance.o -c libresistance/calc_resistance.c
+	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_POWER) libresistance/libresistance.o
 
 libcomponent.o:
 	mkdir -p $(LIBPATH)
-	$(CC) $(CFLAGS) -fPIC -o libcomponent.o -c libcomponent/e_resistance.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent.o
+	$(CC) $(CFLAGS) -fPIC -o libcomponent/libcomponent.o -c libcomponent/e_resistance.c
+	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent/libcomponent.o
 
 
 
@@ -55,6 +55,9 @@ clean:
 	-rm -f electrotest
 	-rm -rf lib
 	-rm -f *.o
+	-rm -f libcomponent/*.o
+	-rm -f libpower/*.o
+	-rm -f libresistance/*.o
 
 # Installerar programmet
 install: electrotest
