@@ -30,7 +30,8 @@ LIBPATH = lib
 
 # Skapar programmet från objektfiler
 electrotest: libpower.o libresistance.o libcomponent.o
-	$(CC) $(CFLAGS) -o $(TARGET) electrotest.c $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
+	$(CC) $(CFLAGS) -c -o $(TARGET).o electrotest.c
+	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
 libpower.o:
 	mkdir -p $(LIBPATH)
@@ -87,7 +88,7 @@ install: electrotest
 # Om installationssökvägen är en katalog kan vi installera programmet
 	@if [ -d $(INSTDIR) ]; \
 		then \
-		$(CC) $(CFLAGS) -o $(INSTDIR)/$(TARGET) electrotest.c $(LIBS) -Wl,-rpath,$(LIB_INSTDIR); \
+		$(CC) $(CFLAGS) -o $(INSTDIR)/$(TARGET) electrotest.o $(LIBS) -Wl,-rpath,$(LIB_INSTDIR); \
 		chmod a+x $(INSTDIR)/$(TARGET); \
 		chmod og-w $(INSTDIR)/$(TARGET); \
 		echo "Program installed in $(INSTDIR)";\
