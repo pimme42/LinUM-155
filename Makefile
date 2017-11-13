@@ -30,7 +30,7 @@ LIBPATH = lib
 
 # Skapar programmet från objektfiler
 electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o
-	$(CC) $(CFLAGS) -c -o $(TARGET).o electrotest.c
+	$(CC) $(CFLAGS) -c -g -o $(TARGET).o electrotest.c
 	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
 libpower/libpower.o:
@@ -45,7 +45,7 @@ libresistance/libresistance.o:
 
 libcomponent/libcomponent.o:
 	mkdir -p $(LIBPATH)
-	$(CC) $(CFLAGS) -fPIC -o libcomponent/libcomponent.o -c libcomponent/e_resistance.c
+	$(CC) $(CFLAGS) -fPIC -g -o libcomponent/libcomponent.o -c libcomponent/e_resistance.c
 	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent/libcomponent.o
 
 
@@ -115,7 +115,7 @@ uninstall:
 
 
 electrotest2: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
-		$(CC) $(CFLAGS) -c -o $(TARGET)2.o electrotest.c
+		$(CC) $(CFLAGS) -c -o -g $(TARGET)2.o electrotest.c
 		$(CC) $(CFLAGS) -o $(TARGET)2 electrotest2.o $(LIBSSRC) -lelectro -Wl,-rpath,$(LIBPATH)
 
 libs: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
@@ -132,4 +132,4 @@ libresistance/libresistance2.o:
 	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance2.o -c libresistance/calc_resistance.c
 
 libcomponent/libcomponent2.o:
-	$(CC) $(CFLAGS) -fPIC -o libcomponent/libcomponent2.o -c libcomponent/e_resistance.c
+	$(CC) $(CFLAGS) -fPIC -o -g libcomponent/libcomponent2.o -c libcomponent/e_resistance.c

@@ -33,7 +33,7 @@ for (int j=0; j<4; j++){	//initializing approximate values to 0s
 	tmp[j]=0;
 }
 
-tmp[4]==orig_resistance*5/100; //Error tolerance 5%
+tmp[4]=orig_resistance*5/100; //Error tolerance 5%
 
 for (int i=0; i< len-12; i++){
 
