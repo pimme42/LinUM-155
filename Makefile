@@ -29,28 +29,25 @@ TARGET_POWER = libpower.so
 LIBPATH = lib
 
 # Skapar programmet från objektfiler
-electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o
-	$(CC) $(CFLAGS) -c -g -o $(TARGET).o electrotest.c
+electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o lib
+	$(CC) $(CFLAGS) -c -o $(TARGET).o electrotest.c
 	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
 # Skapar enbart biblioteken
 lib: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o
-
+	mkdir -p $(LIBPATH)
+	$(CC) $(CFLAGS) -shared -o $(LIBPATH)/$(TARGET_RESISTANCE) libpower/libpower.o
+	$(CC) $(CFLAGS) -shared -o $(LIBPATH)/$(TARGET_POWER) libresistance/libresistance.o
+	$(CC) $(CFLAGS) -shared -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent/libcomponent.o
 
 libpower/libpower.o:
-	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libpower/libpower.o -c libpower/calc_power.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_RESISTANCE) libpower/libpower.o
 
 libresistance/libresistance.o:
-	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance.o -c libresistance/calc_resistance.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_POWER) libresistance/libresistance.o
 
 libcomponent/libcomponent.o:
-	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -g -o libcomponent/libcomponent.o -c libcomponent/e_resistance.c
-	$(CC) $(CFLAGS) -shared -fPIC -o $(LIBPATH)/$(TARGET_COMPONENT) libcomponent/libcomponent.o
 
 
 
@@ -82,12 +79,9 @@ install: electrotest
 		cp $(LIBPATH)/$(TARGET_POWER) $(LIB_INSTDIR); \
 		cp $(LIBPATH)/$(TARGET_COMPONENT) $(LIB_INSTDIR); \
 		cp $(LIBPATH)/$(TARGET_RESISTANCE) $(LIB_INSTDIR); \
-		chmod a+x $(LIB_INSTDIR)/$(TARGET_RESISTANCE); \
-		chmod og-w $(LIB_INSTDIR)/$(TARGET_RESISTANCE); \
-		chmod a+x $(LIB_INSTDIR)/$(TARGET_POWER); \
-		chmod og-w $(LIB_INSTDIR)/$(TARGET_POWER); \
-		chmod a+x $(LIB_INSTDIR)/$(TARGET_COMPONENT); \
-		chmod og-w $(LIB_INSTDIR)/$(TARGET_COMPONENT); \
+		chmod 0755 $(LIB_INSTDIR)/$(TARGET_RESISTANCE); \
+		chmod 0755 $(LIB_INSTDIR)/$(TARGET_POWER); \
+		chmod 0755 $(LIB_INSTDIR)/$(TARGET_COMPONENT); \
 		echo "Library installed in $(LIB_INSTDIR)";\
 	else \
 		echo "Sorry, $(LIB_INSTDIR) is not a directory"; \
@@ -99,11 +93,11 @@ install: electrotest
 	fi
 
 # Om installationssökvägen är en katalog kan vi installera programmet
+# Vi måste länka om programmet så att det använder rätt bibliotek
 	@if [ -d $(INSTDIR) ]; \
 		then \
 		$(CC) $(CFLAGS) -o $(INSTDIR)/$(TARGET) electrotest.o $(LIBS) -Wl,-rpath,$(LIB_INSTDIR); \
-		chmod a+x $(INSTDIR)/$(TARGET); \
-		chmod og-w $(INSTDIR)/$(TARGET); \
+		chmod 0755 $(INSTDIR)/$(TARGET); \
 		echo "Program installed in $(INSTDIR)";\
 	else \
 		echo "Sorry, $(INSTDIR) is not a directory"; \
@@ -116,24 +110,3 @@ uninstall:
 	-rm $(LIB_INSTDIR)/$(TARGET_COMPONENT)
 	-rm $(LIB_INSTDIR)/$(TARGET_POWER)
 	-rm $(LIB_INSTDIR)/$(TARGET_RESISTANCE)
-
-
-electrotest2: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
-		$(CC) $(CFLAGS) -c -o -g $(TARGET)2.o electrotest.c
-		$(CC) $(CFLAGS) -o $(TARGET)2 electrotest2.o $(LIBSSRC) -lelectro -Wl,-rpath,$(LIBPATH)
-
-libs: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
-	@if [ ! -e $(LIBPATH) ]; \
-		then \
-		mkdir $(LIBPATH); \
-	fi
-	$(CC) $(CFLAGS) -shared -o $(LIBPATH)/libelectro.so libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
-
-libpower/libpower2.o:
-	$(CC) $(CFLAGS) -fPIC -o libpower/libpower2.o -c libpower/calc_power.c
-
-libresistance/libresistance2.o:
-	$(CC) $(CFLAGS) -fPIC -o libresistance/libresistance2.o -c libresistance/calc_resistance.c
-
-libcomponent/libcomponent2.o:
-	$(CC) $(CFLAGS) -fPIC -o -g libcomponent/libcomponent2.o -c libcomponent/e_resistance.c
