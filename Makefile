@@ -29,7 +29,7 @@ TARGET_POWER = libpower.so
 LIBPATH = lib
 
 # Skapar programmet från objektfiler
-electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o lib
+electrotest: lib
 	$(CC) $(CFLAGS) -c -o $(TARGET).o electrotest.c
 	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
