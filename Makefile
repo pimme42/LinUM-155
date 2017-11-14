@@ -53,7 +53,7 @@ libcomponent/libcomponent.o:
 
 # Tar bort alla objektfiler
 clean:
-	-rm -f electrotest
+	-rm -f $(TARGET)
 	-rm -rf $(LIBPATH)
 	-rm -f *.o
 	-rm -f libcomponent/*.o
