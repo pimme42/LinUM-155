@@ -33,6 +33,10 @@ electrotest: libpower/libpower.o libresistance/libresistance.o libcomponent/libc
 	$(CC) $(CFLAGS) -c -g -o $(TARGET).o electrotest.c
 	$(CC) $(CFLAGS) -o $(TARGET) electrotest.o $(LIBSSRC) $(LIBS) -Wl,-rpath,$(LIBPATH)
 
+# Skapar enbart biblioteken
+lib: libpower/libpower.o libresistance/libresistance.o libcomponent/libcomponent.o
+
+
 libpower/libpower.o:
 	mkdir -p $(LIBPATH)
 	$(CC) $(CFLAGS) -fPIC -o libpower/libpower.o -c libpower/calc_power.c
