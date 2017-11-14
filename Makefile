@@ -1,10 +1,11 @@
-all: electrotest
-
 # Välj kompilator
 CC = gcc
 
+# Sökväg där biblioteken ska lagras
+LIBPATH = lib
+
 # Sökväg till biblioteken
-LIBSSRC = -Llib
+LIBSSRC = -L$(LIBPATH)
 
 # Vilka bibliotek som behövs
 LIBS = -lpower -lcomponent -lresistance
@@ -25,8 +26,7 @@ TARGET_COMPONENT = libcomponent.so
 TARGET_RESISTANCE = libresistance.so
 TARGET_POWER = libpower.so
 
-# Sökväg där biblioteken ska lagras
-LIBPATH = lib
+all: electrotest
 
 # Skapar programmet från objektfiler
 electrotest: lib
