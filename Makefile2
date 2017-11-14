@@ -1,3 +1,5 @@
+# Den här filen var ett litet test för att se hur det gick att skapa ett bibliotek med alla våra funktioner i
+
 electrotest2: libpower/libpower2.o libresistance/libresistance2.o libcomponent/libcomponent2.o
 		$(CC) $(CFLAGS) -c -o -g $(TARGET)2.o electrotest.c
 		$(CC) $(CFLAGS) -o $(TARGET)2 electrotest2.o $(LIBSSRC) -lelectro -Wl,-rpath,$(LIBPATH)
